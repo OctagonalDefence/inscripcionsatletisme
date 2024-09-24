@@ -103,6 +103,17 @@ describe('InscripcioComponent', () => {
     const dniLetter = fixture.nativeElement.querySelector('#dniLetter');
     expect(dniLetter.textContent).toEqual('Z');
   });
+
+  it('should prevent selection of distances greater than 1100 meters', () => {
+    const distances = component.registrationForm.get('distances');
+    if (distances) {
+      distances.get('100m')?.setValue(true);
+      distances.get('400m')?.setValue(true);
+      distances.get('800m')?.setValue(true);
+      
+      expect(distances.hasError('invalidDistance')).toBeTruthy();
+    }
+  });
     
 
   
