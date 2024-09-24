@@ -96,5 +96,14 @@ describe('InscripcioComponent', () => {
     expect(submit.textContent).toEqual("Inscripció");
   });
 
+  it('should calculate the correct DNI letter', () => {
+    const dni = fixture.nativeElement.querySelector('#dni');
+    dni.value = '12345678';
+    dni.dispatchEvent(new Event('input'));
+    const dniLetter = fixture.nativeElement.querySelector('#dniLetter');
+    expect(dniLetter.textContent).toEqual('Z');
+  });
+    
+
   
 });
