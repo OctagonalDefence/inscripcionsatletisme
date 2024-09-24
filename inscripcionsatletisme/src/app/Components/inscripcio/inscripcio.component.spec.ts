@@ -90,5 +90,11 @@ describe('InscripcioComponent', () => {
     expect(opcions[3].value).toEqual("800 m llisos");
     expect(opcions[4].value).toEqual("1000 m llisos");
   });
+
+  it('should have a submit button labelled Inscripció', () => {
+    const submit = fixture.nativeElement.querySelector('button');
+    expect(submit.textContent).toEqual("Inscripció");
+  });
+
   
 });
