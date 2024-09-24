@@ -63,5 +63,51 @@ describe('InscripcioComponent', () => {
     expect(email).toBeTruthy();
     
   });
+
+  it('should validate all the inputs in the second fieldset with its conditions', () => {
+
+    //fielset2
+    const fieldset2 = fixture.nativeElement.querySelectorAll('fieldset')[1];
+    expect(fieldset2).toBeTruthy();
+
+    //h3
+    const h3 = fieldset2.querySelector('h3');
+    expect(h3.textContent).toEqual("Inscripcio");
+
+    //p 
+    const p = fieldset2.querySelector('p');
+    expect(p.textContent).toEqual("Un atleta no es pot inscriure a mes de 1100 metres:");
+
+    //checkbox
+    const checkbox = fieldset2.querySelector('#checkbox');
+    expect(checkbox).toBeTruthy();
+
+   
+    //num options
+    const options = fieldset2.querySelectorAll('input[type="checkbox"]');
+    expect(options.length).toEqual(5);
+
+    //opcions de checkbox
+    const option1 = options[0];
+    expect(option1).toBeTruthy();
+    expect(option1.value).toEqual("100 m llisos");
+
+    const option2 = options[1];
+    expect(option2).toBeTruthy();
+    expect(option2.value).toEqual("200 m llisos");
+
+    const option3 = options[2];
+    expect(option3).toBeTruthy();
+    expect(option3.value).toEqual("400 m llisos");
+
+    const option4 = options[3];
+    expect(option4).toBeTruthy();
+    expect(option4.value).toEqual("800 m llisos");
+
+    const option5 = options[4];
+    expect(option5).toBeTruthy();
+    expect(option5.value).toEqual("1000 m llisos");
+
+  });
   
 });
