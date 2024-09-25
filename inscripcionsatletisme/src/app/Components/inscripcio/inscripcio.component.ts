@@ -8,15 +8,16 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class InscripcioComponent {
   registrationForm: FormGroup;
-  dniLetters = "TRWAGMYFPDXBNJZSQVHLCKE"; // Equivalency table for DNI
+  dniLetters = "TRWAGMYFPDXBNJZSQVHLCKE";
+  events: any;
 
   constructor(private fb: FormBuilder) {
     this.registrationForm = this.fb.group({
-      dni: ['', [Validators.required, Validators.pattern('^[0-9]{8}$')]], // DNI only accepts 8 digits
-      federatedCode: ['', [Validators.required, Validators.pattern('^[0-9]+$')]], // Only numbers
+      dni: ['', [Validators.required, Validators.pattern('^[0-9]{8}$')]], 
+      federatedCode: ['', [Validators.required, Validators.pattern('^[0-9]+$')]], 
       name: ['', Validators.required],
-      phone: ['', [Validators.required, Validators.pattern('^[0-9]{9}$')]], // Regex for a 9-digit phone
-      email: ['', [Validators.required, Validators.email]], // Basic email validation
+      phone: ['', [Validators.required, Validators.pattern('^[0-9]{9}$')]], 
+      email: ['', [Validators.required, Validators.email]], 
       distances: this.fb.group({
         '100m': [false],
         '200m': [false],
@@ -37,7 +38,7 @@ export class InscripcioComponent {
     const dniNumber = parseInt(dni, 10);
     const letterIndex = dniNumber % 23;
     const letter = this.dniLetters[letterIndex];
-    this.registrationForm.patchValue({ dni: `${dni}-${letter}` });
+    this.registrationForm.patchValue({ dni: `${dni}${letter}` });
   }
 
   validateDistance(group: FormGroup) {

@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { InscripcioComponent } from './inscripcio.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 describe('InscripcioComponent', () => {
   let component: InscripcioComponent;
@@ -8,7 +9,9 @@ describe('InscripcioComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ InscripcioComponent ]
+      declarations: [ InscripcioComponent ],
+      imports: [ ReactiveFormsModule ] 
+    
     })
     .compileComponents();
 
@@ -82,13 +85,13 @@ describe('InscripcioComponent', () => {
     const num = fieldset2.querySelectorAll('input[type="checkbox"]').length;
     expect(num).toEqual(5);
 
-    //opcions de checkbox
-    const opcions = fieldset2.querySelectorAll('input[type="checkbox"]');
-    expect(opcions[0].value).toEqual("100 m llisos");
-    expect(opcions[1].value).toEqual("200 m llisos");
-    expect(opcions[2].value).toEqual("400 m llisos");
-    expect(opcions[3].value).toEqual("800 m llisos");
-    expect(opcions[4].value).toEqual("1000 m llisos");
+    //labels de checkbox
+    const labels = fieldset2.querySelectorAll('label');
+    expect(labels[0].textContent).toEqual("100 m llisos");
+    expect(labels[1].textContent).toEqual("200 m llisos");
+    expect(labels[2].textContent).toEqual("400 m llisos");
+    expect(labels[3].textContent).toEqual("800 m llisos");
+    expect(labels[4].textContent).toEqual("1000 m llisos");
   });
 
   it('should have a submit button labelled Inscripció', () => {
@@ -96,12 +99,14 @@ describe('InscripcioComponent', () => {
     expect(submit.textContent).toEqual("Inscripció");
   });
 
-  it('should calculate the correct DNI letter', () => {
-    const dni = fixture.nativeElement.querySelector('#dni');
-    dni.value = '12345678';
-    dni.dispatchEvent(new Event('input'));
-    const dniLetter = fixture.nativeElement.querySelector('#dniLetter');
-    expect(dniLetter.textContent).toEqual('Z');
+  it('should autowrite the correct DNI letter in the input', () => {
+    const dni = component.registrationForm.get('dni');
+    if (dni) {
+      dni.setValue('12345678');
+      expect(dni.value).toEqual('12345678Z');
+    }
+    
+    
   });
 
   it('should prevent selection of distances greater than 1100 meters', () => {
