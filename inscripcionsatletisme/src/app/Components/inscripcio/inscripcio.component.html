@@ -3,43 +3,42 @@
 <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
   <fieldset>
     <h3>Dades identificatives</h3>
+    
     <div class="form-group">
       <label for="dni">DNI</label>
-      <input type="text" id="dni" formControlName="dni" required>
+      <input type="number" id="dni" formControlName="dni" required> <span *ngIf="dniLetter">{{ dniLetter }}</span>
       <div *ngIf="registrationForm.get('dni')?.invalid && registrationForm.get('dni')?.touched">
-
+        Format de DNI invalid
       </div>
-        DNI format invalid (must be 8 digits)
-      </div>
+    </div>
+    
     <div class="form-group">
       <label for="codi">Codi de federat</label>
-      <input type="text" id="codi" formControlName="federatedCode" required>
-      <div *ngIf="registrationForm.get('federatedCode')?.invalid && registrationForm.get('federatedCode')?.touched">
-      </div>
-        Federated code must be numeric
-      </div>
+      <input type="number" id="codi" formControlName="federatedCode" required>
+    </div>
+    
     <div class="form-group">
       <label for="nom">Nom i cognoms</label>
       <input type="text" id="nom" formControlName="name" required>
     </div>
+    
     <div class="form-group">
       <label for="telefon">Telefon</label>
-      <input type="text" id="telefon" formControlName="phone" required>
+      <input type="number" id="telefon" formControlName="phone" required>
       <div *ngIf="registrationForm.get('phone')?.invalid && registrationForm.get('phone')?.touched">
-
+        Format de telefon invalid
       </div>
-        Phone must be 9 digits
-      </div>
+    </div>
+    
     <div class="form-group">
       <label for="email">Email</label>
       <input type="email" id="email" formControlName="email" required>
       <div *ngIf="registrationForm.get('email')?.invalid && registrationForm.get('email')?.touched">
-
+        Format de mail invalid
       </div>
-        Invalid email format
-      </div>
+    </div>
   </fieldset>
-
+  <br>
   <fieldset>
     <h3>Inscripcio</h3>
     <p>Un atleta no es pot inscriure a mes de 1100 metres:</p>
@@ -65,12 +64,13 @@
         <input type="checkbox" id="1000m" formControlName="1000m">
         <label for="1000m">1000 m llisos</label>
       </div>
+      
       <div *ngIf="registrationForm.get('distances')?.hasError('invalidDistance')">
-
+        No es pot inscriure a mes de 1100 metres
       </div>
-        You cannot register for more than 1100 meters.
-      </div>
+    </div>
   </fieldset>
+  <br>
 
   <button type="submit" [disabled]="registrationForm.invalid">Inscripció</button>
 </form>

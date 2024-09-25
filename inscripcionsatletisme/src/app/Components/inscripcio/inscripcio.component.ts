@@ -9,13 +9,14 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class InscripcioComponent {
   registrationForm: FormGroup;
   dniLetters = "TRWAGMYFPDXBNJZSQVHLCKE";
+  dniLetter: string = '';
   events: any;
 
   constructor(private fb: FormBuilder) {
     this.registrationForm = this.fb.group({
       dni: ['', [Validators.required, Validators.pattern('^[0-9]{8}$')]], 
-      federatedCode: ['', [Validators.required, Validators.pattern('^[0-9]+$')]], 
       name: ['', Validators.required],
+      federatedCode: ['', Validators.required],
       phone: ['', [Validators.required, Validators.pattern('^[0-9]{9}$')]], 
       email: ['', [Validators.required, Validators.email]], 
       distances: this.fb.group({
@@ -30,15 +31,16 @@ export class InscripcioComponent {
     this.registrationForm.get('dni')?.valueChanges.subscribe(value => {
       if (value.length === 8) {
         this.calculateDNILetter(value);
+      } else {
+        this.dniLetter = '';
       }
     });
   }
 
-  calculateDNILetter(dni: string) {
+    calculateDNILetter(dni: string) {
     const dniNumber = parseInt(dni, 10);
     const letterIndex = dniNumber % 23;
-    const letter = this.dniLetters[letterIndex];
-    this.registrationForm.patchValue({ dni: `${dni}${letter}` });
+    this.dniLetter = this.dniLetters[letterIndex];
   }
 
   validateDistance(group: FormGroup) {

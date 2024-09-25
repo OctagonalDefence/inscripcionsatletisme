@@ -99,15 +99,21 @@ describe('InscripcioComponent', () => {
     expect(submit.textContent).toEqual("Inscripció");
   });
 
+  it('dni should follow the following pattern: 8 numbers and 1 letter', () => {
+    const dni = component.registrationForm.get('dni');
+    if (dni) {
+      dni.setValue('12345678Z');
+      expect(dni.hasError('pattern')).toBeFalsy();
+    }
+  });
+
+
   it('should autowrite the correct DNI letter in the input', () => {
     const dni = component.registrationForm.get('dni');
     if (dni) {
       dni.setValue('12345678');
       expect(dni.value).toEqual('12345678Z');
-    }
-    
-    
-  });
+    }});
 
   it('should prevent selection of distances greater than 1100 meters', () => {
     const distances = component.registrationForm.get('distances');
